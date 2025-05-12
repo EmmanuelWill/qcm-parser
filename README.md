@@ -15,11 +15,14 @@ Using yarn:
 yarn add qcm-parser
 ```
 
-## Quickstart
+## Quickstart for usage
 ![alt text](quick_start.png)
 
 ## Output
 ![alt text](output.png)
+
+## Markdown example file
+Check the qcm-example.md file to see the format required
 
 ## 📖 API
 parseQCM(markdown: string, options?: ParseOptions): Question[]
