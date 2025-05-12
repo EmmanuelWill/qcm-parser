@@ -1,0 +1,44 @@
+# Node.js dependencies
+node_modules/
+
+# Dossier de sortie de la compilation TypeScript
+dist/
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+.pnpm-debug.log*
+.pnp.js
+.pnp.cjs
+
+.env
+.env.*.local
+
+# IDE / éditeur
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+ehthumbs.db
+
+# Typescript
+*.tsbuildinfo
+
+# Build artifacts divers
+build/
+tmp/
+temp/
+
+
+package-lock.json
+yarn.lock
+pnpm-lock.yaml

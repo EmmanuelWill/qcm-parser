@@ -1,0 +1,23 @@
+{
+  "name": "qcm-parser",
+  "version": "1.0.0",
+  "description": "Parse Markdown-formatted QCM into JSON.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "npx tsc",
+    "test": "node dist/test.js"
+  },
+  "keywords": [
+    "qcm",
+    "markdown",
+    "parser",
+    "quiz",
+    "json"
+  ],
+  "author": "EmmanuelWill",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^5.8.3"
+  }
+}
