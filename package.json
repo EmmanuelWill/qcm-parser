@@ -2,6 +2,10 @@
   "name": "qcm-parser",
   "version": "1.0.0",
   "description": "Parse Markdown-formatted QCM into JSON.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EmmanuelWill/qcm-parser"
+  },
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
