@@ -6,6 +6,10 @@
     "type": "git",
     "url": "git+https://github.com/EmmanuelWill/qcm-parser"
   },
+  "homepage": "https://github.com/EmmanuelWill/qcm-parser#readme",
+  "bugs": {
+    "url": "https://github.com/EmmanuelWill/qcm-parser/issues"
+  },
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
