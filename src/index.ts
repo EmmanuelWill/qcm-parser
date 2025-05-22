@@ -138,7 +138,7 @@ export function parseQCMFromArray(
     const answers: Answer[] = item.answers.map((ans, aidx) => {
       if (typeof ans.text !== 'string' || (![true, false, null].includes(ans.correct))) {
         throw new Error(
-          `Question #${idx + 1}, Réponse #${aidx + 1} malformatée: expected { text: string, correct: boolean | null }`
+          `Question #${idx + 1}, Réponse #${aidx + 1}  est malformatée: expected { text: string, correct: boolean | null }`
         );
       }
       // treat null as false
