@@ -122,7 +122,7 @@ export function parseQCMFromArray(
 
   rawArr.forEach((item, idx) => {
     if (typeof item.title !== 'string' || !Array.isArray(item.answers)) {
-      throw new Error(`Item #${idx + 1} is malformed, expected { title: string; answers: Answer[] }`);
+      throw new Error(`Item #${idx + 1} est mal formaté: expected { title: string, answers: Answer[] }`);
     }
 
     // Extract score from title if present
@@ -136,12 +136,16 @@ export function parseQCMFromArray(
 
     // Map answers
     const answers: Answer[] = item.answers.map((ans, aidx) => {
-      if (typeof ans.text !== 'string' || typeof ans.correct !== 'boolean') {
+      if (typeof ans.text !== 'string' || (![true, false, null].includes(ans.correct))) {
         throw new Error(
-          `Question #${idx + 1}, answer #${aidx + 1} is malformed, expected { text: string; correct: boolean }`
+          `Question #${idx + 1}, Réponse #${aidx + 1} est malformatée: expected { text: string, correct: boolean | null }`
         );
       }
-      return { text: ans.text.trim(), correct: ans.correct };
+      // treat null as false
+      return {
+        text: ans.text.trim(),
+        correct: ans.correct === true
+      };
     });
 
     // Push question skeleton
