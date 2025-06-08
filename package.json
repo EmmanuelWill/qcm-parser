@@ -14,7 +14,8 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "npx tsc",
-    "test": "node dist/test.js"
+    "test": "node dist/test.js",
+    "test:markdown": "ts-node testMarkdown.ts"
   },
   "keywords": [
     "qcm",
@@ -26,6 +27,7 @@
   "author": "EmmanuelWill",
   "license": "MIT",
   "devDependencies": {
+    "ts-node": "^10.9.2",
     "typescript": "^5.8.3"
   }
 }

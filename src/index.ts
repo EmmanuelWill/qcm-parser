@@ -1,4 +1,5 @@
 import { QCM, RawArrayQ, Question, Answer, ParseOptions } from './types';
+
 import { finalizeQuestions } from './utils';
 
 /**
@@ -160,4 +161,37 @@ export function parseQCMFromArray(
   // Finalize (detect multipleAnswers, enforce options)
   qcm.questions = finalizeQuestions(qcm.questions, options);
   return qcm;
+}
+
+
+
+/**
+ * Transforme un objet QCM en texte Markdown.
+ *
+ * @param qcm - Le QCM à transformer.
+ * @returns Une chaîne Markdown représentant le QCM.
+ */
+export function jsonToMarkdown(qcm: QCM): string {
+  const lines: string[] = [];
+
+  // Titre
+  if (qcm.title) {
+    lines.push(`# Title: ${qcm.title}`);
+    lines.push(''); // ligne vide
+  }
+
+  // Questions
+  qcm.questions.forEach((q: Question) => {
+    const score = q.score || 1;
+    lines.push(`## Q: ${q.title} [${score}]`);
+
+    q.answers.forEach((a: Answer) => {
+      const checkbox = a.correct ? '[x]' : '[ ]';
+      lines.push(`- ${checkbox} ${a.text}`);
+    });
+
+    lines.push(''); // ligne vide entre les questions
+  });
+
+  return lines.join('\n');
 }
