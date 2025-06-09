@@ -161,3 +161,80 @@ export function parseQCMFromArray(
   qcm.questions = finalizeQuestions(qcm.questions, options);
   return qcm;
 }
+
+/**
+ * Converts a QCM object into a Markdown string.
+ *
+ * @param qcm - The QCM object with optional global title and array of questions.
+ * @returns A Markdown-formatted string:
+ *   - Optional top-level title: `# <title>`
+ *   - Each question: `## Q: <title> [score]`
+ *   - Each answer: `- [x] <text>` or `- [ ] <text>`
+ */
+export function jsonToMd(qcm: QCM): string {
+  const lines: string[] = [];
+
+  // Global title
+  if (qcm.title) {
+    lines.push(`# ${qcm.title.trim()}`);
+    lines.push('');
+  }
+
+  // Questions
+  qcm.questions.forEach((question: Question) => {
+    // Header with optional score
+    let header = `## Q: ${question.title.trim()}`;
+    if (typeof question.score === 'number') {
+      header += ` [${question.score}]`;
+    }
+    lines.push(header);
+
+    // Answers
+    question.answers.forEach((ans: Answer) => {
+      const mark = ans.correct ? '[x]' : '[ ]';
+      lines.push(`- ${mark} ${ans.text.trim()}`);
+    });
+
+    lines.push('');
+  });
+
+  return lines.join('\n').trimEnd() + '\n';
+}
+
+/**
+ * Generates the Markdown text from the QCM object and
+ * immediately triggers a browser download of the `.md` file.
+ *
+ * The filename defaults to `<QCM title>.md` (sanitized), or `qcm.md` if no title.
+ *
+ * @param qcm - The QCM object to export.
+ */
+export function downloadMd(qcm: QCM): void {
+  // 1. Generate the markdown
+  const md = jsonToMd(qcm);
+
+  // 2. Determine filename from QCM title (fallback to 'qcm')
+  const base = qcm.title
+    ? qcm.title
+        .trim()
+        // remove illegal filename characters
+        .replace(/[\/\\?%*:|"<>]/g, '')
+        .replace(/\s+/g, '_')
+    : 'qcm';
+  const filename = `${base}.md`;
+
+  // 3. Create a Blob and object URL
+  const blob = new Blob([md], { type: 'text/markdown' });
+  const url = URL.createObjectURL(blob);
+
+  // 4. Create a temporary anchor and trigger download
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+
+  // 5. Clean up
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
