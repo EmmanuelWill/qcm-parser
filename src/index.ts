@@ -176,7 +176,7 @@ export function jsonToMd(qcm: QCM): string {
 
   // Global title
   if (qcm.title) {
-    lines.push(`# ${qcm.title.trim()}`);
+    lines.push(`# Title: ${qcm.title.trim()}`);
     lines.push('');
   }
 
